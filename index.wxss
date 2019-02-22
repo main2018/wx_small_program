@@ -1,0 +1,24 @@
+.split{
+  height: 20rpx;
+  background-color: var(--bg)
+}
+
+
+page{
+  --text-l: rgba(0,0,0,.54);
+  --theme-color: red;
+  --bg: #ccc;
+  --border-color: #ccc;
+
+  --font-small: 25rpx;
+  --font-large: 35rpx;
+  --font-large-x: 40rpx;
+}
+.amount{
+  color: var(--theme-color)
+}
+.title{
+  font-weight: 700;
+  font-size: var(--font-large);
+  line-height: 1.6;
+}

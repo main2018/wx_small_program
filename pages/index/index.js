@@ -7,7 +7,14 @@ Page({
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    commoditys: null,
+    toView: 'blue',
+    scrollTop: 100,
+    pageSize: 5,
+    pageNum: 1,
+    finished: false,
+    isLoading: false
   },
   //事件处理函数
   bindViewTap: function() {
@@ -16,11 +23,7 @@ Page({
     })
   },
   onLoad: function () {
-    wx.scanCode({
-      success: (res) => {
-        console.log(res)
-      }
-    })
+    this.getCommoditys()
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -48,13 +51,54 @@ Page({
       })
     }
   },
+  onPullDownRefresh() {
+    this.pageNum = 1
+    this.setData({commoditys: null})
+    this.getCommoditys().then(() => { wx.stopPullDownRefresh() })
+  },
+  onReachBottom() {
+    if (this.data.finished) return
+    this.setData({isLoading: true})
+    this.getCommoditys().then(() => {
+      this.setData({isLoading: false})
+    })
+  },
+  toDetail(e) {
+    const id = e.currentTarget.dataset.id
+    wx.setStorageSync('id', id)
+    wx.navigateTo({
+      url: '/pages/detail/detail?id=' + id,
+    })
+  },
+  scroll(e) {
+    // console.log(e)
+  },
   getUserInfo: function(e) {
-    console.log(e)
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
+  },
+  getCommoditys() {
+    return new Promise(resolve => {
+      wx.$ajax('/api/platform/product/productPage', {
+          pageSize: this.data.pageSize, pageNum: this.data.pageNum, status: 1
+        })
+        .then(resp => {
+          const _list = resp && resp.list || []
+          if (_list.length < this.data.pageSize) this.setData({finished: true})
+          const commoditys = [...this.data.commoditys || []]
+
+          _list.forEach((commodity, index) => {
+            this.setData({[`commoditys[${commoditys.length + index}]`]: commodity})
+          })
+          this.setData({pageNum: this.data.pageNum + 1})
+          // this.setData({pageNum: this.data.pageNum + 1,commoditys: [...this.data.commoditys || [], ..._list]})
+          resolve()
+        })
+    })
+    
   },
   clickMe() {
     this.setData({ motto: 'Hello China' })

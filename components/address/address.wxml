@@ -1,0 +1,19 @@
+<van-popup 
+  show="{{popupShow}}" 
+  position="bottom" 
+  bind:click-overlay="hidePopup"
+  >
+  <!-- <view class='address-item'>
+    
+  </view> -->
+  <radio-group class="radio-group" bindchange="radioChange">
+    <label class="address-item" >
+      <radio value="1" checked="{{item.checked}}" color="#8A2BE2"/>
+      <view class='address-item-content'>
+        <text>王攀, 13325212518 </text>
+        <text class='address-item-address'>内蒙古沙发沙发沙发沙发沙发沙发是阿萨法人为恶无法 </text>
+      </view>
+      <van-icon name="edit" />
+    </label>
+  </radio-group>
+</van-popup>

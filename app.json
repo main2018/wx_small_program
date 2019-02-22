@@ -1,12 +1,26 @@
 {
-  "pages":[
+  "pages": [
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/detail/detail",
+    "pages/buy/buy"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"black"
+  "window": {
+    "backgroundColor": "red",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#2e5e86",
+    "navigationBarTitleText": "雪顿云商",
+    "navigationBarTextStyle": "black"
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 10000
+  },
+  "debug": true,
+  "usingComponents": {
+    "van-button": "/miniprogram_npm/vant-weapp/button/index",
+    "over": "/components/over/over",
+    "van-popup": "/miniprogram_npm/vant-weapp/popup/index",
+    "van-icon": "/miniprogram_npm/vant-weapp/icon/index"
   }
 }

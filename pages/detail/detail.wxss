@@ -1,0 +1,46 @@
+/* pages/detail/detail.wxss */
+swiper{
+  width: 100%;
+  height: 340rpx;
+}
+swiper image{
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.head{
+  padding: 20rpx;
+  line-height: 2;
+}
+.desc{
+  display: block;
+  color: var(--text-l);
+  line-height: 1.5;
+}
+.amount{
+  font-size: var(--font-large);
+}
+.sold-stock{
+  float: right;
+  color: var(--text-l);
+}
+.commodity-key{
+  margin: 0 20rpx;
+  display: block;
+  color: var(--text-l);
+  line-height: 2.5;
+}
+.commodity-key:not(:last-of-type){
+  border-bottom: 1rpx solid var(--border-color);
+}
+.footer{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+}
+.footer>button{
+  flex: 1;
+  border-radius: 0;
+}

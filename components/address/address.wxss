@@ -1,0 +1,5 @@
+/* components/address/address.wxss */
+.address-item{
+  display: flex;
+  align-items: center;
+}

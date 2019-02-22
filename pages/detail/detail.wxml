@@ -1,0 +1,34 @@
+<swiper autoplay="true" interval="5000" duration="500" indicator-dots="true" circular="true">
+  <block wx:for="{{images}}" wx:key="{{index}}">
+    <swiper-item>
+      <image src="{{item}}" class="slide-image"/>
+    </swiper-item>
+  </block>
+</swiper>
+<view class='head'>
+  <text class='title'>{{commodity.name}}</text>
+  <text class='desc'>{{commodity.subtitle}}</text>
+  <view>
+    <text class='amount'>¥{{commodity.price}}</text>
+    <text class='sold-stock'>累计销售{{commodity.soldStock || 0}}件</text>
+  </view>
+</view>
+<view class='split'></view>
+<text decode="{{true}}" wx:for="{{keys}}" wx:key="{{item.key}}" class="commodity-key">{{item.key}}：&emsp;{{item.value}}</text>
+<view class='split'></view>
+<import src="/plugins/wxParse/wxParse.wxml"/>
+<template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+
+<view class='footer'>
+  <button type="primary" open-type='share'>分享</button>
+  <button type="warn" bindtap='toBuy'>购买</button>
+</view>
+
+<van-popup 
+  show="{{popupShow}}" 
+  position="bottom" 
+  custom-style="background-color: transparent;"
+  bind:click-overlay="hidePopup"
+  >
+  <sku bindclose="close" bindchange="skuChange" bindconfirm="skuConfirm" max="{{commodity.stock || 0}}"></sku>
+</van-popup>

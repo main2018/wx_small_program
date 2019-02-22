@@ -1,3 +1,9 @@
+import ajax from 'utils/api.js'
+import {computed} from 'utils/vue-extend.js'
+
+wx.$ajax = ajax
+wx.$computed = computed
+
 //app.js
 App({
   onLaunch: function () {
@@ -9,8 +15,34 @@ App({
     // 登录
     wx.login({
       success: res => {
+        console.log('app', res)
+        const code = res.code
+        if (!code) return
+
+        wx.getUserInfo({
+          success: res => {
+            const { encryptedData, iv} = res
+            ajax('/api/auth/weixin/mplogin', {code, encryptedData, iv}).then(resp => {
+              const token = resp && resp.msg
+              this.globalData.token = token
+
+              ajax('/api/platform/user/findUserByToken').then(resp => {
+                this.globalData.user = resp
+
+                console.log('user', this.globalData.user)
+                if (this.getUserCB) {
+                  this.getUserCB(resp)
+                }
+              })
+            })
+          }
+        })
+        // ajax('/api/auth/weixin/mplogin', {code, encryptedData, iv}).then(resp => {
+        //   console.log('code', resp)
+        // })
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
-      }
+      },
+      fail: err => {}
     })
     // 获取用户信息
     wx.getSetting({
@@ -32,8 +64,17 @@ App({
         }
       }
     })
+
+    this.getWxParse()
   },
   globalData: {
-    userInfo: null
-  }
+    userInfo: null,
+    user: null,
+    token: '',
+  },
+  getWxParse() {
+    var WxParse = require('/plugins/wxParse/wxParse.js');
+    wx.$WxParse = WxParse
+  },
+  // post
 })

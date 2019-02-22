@@ -1,0 +1,18 @@
+<view class="sku">
+  <view class="sku-header">
+    <image src='https://avatar-static.segmentfault.com/201/282/2012824205-5b5fc6add5926_big64'></image>
+    <view >
+      <text class="sku-header-name">测试商品</text>
+      <text class='amount'>1.00</text>
+    </view>
+    <icon type='cancel' color="#ccc" bindtap='close'></icon>
+  </view>
+  <view class='sku-content'>
+    <view class='sku-content-count'>
+      <text>购买数量：</text>
+      <van-stepper min="1" max="{{max}}" value="{{value}}" bind:change="onChange"></van-stepper>
+    </view>
+    <view>剩余{{max}}件</view>
+  </view>
+  <button type='primary' class='sku-confirm' bindtap='confirm'>确定</button>
+</view>
