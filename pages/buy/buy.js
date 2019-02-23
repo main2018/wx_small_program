@@ -33,7 +33,7 @@ Page({
     if (getApp().globalData.user) {
       this.getAddress()
     } else {
-      getApp().getUserCB = this.getAddress
+      getApp().userInfoReadyCallback = this.getAddress
     }
   },
 

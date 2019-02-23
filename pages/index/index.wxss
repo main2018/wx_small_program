@@ -1,4 +1,30 @@
 /**index.wxss**/
+.auth{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0,0,0,.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.auth-content{
+  font-size: var(--font-large-x);
+  width: 500rpx;
+  height: 350rpx;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.auth button{
+  margin-top: 50rpx;
+  width: 200rpx;
+}
+
 page{
   background-color: var(--bg);
 }

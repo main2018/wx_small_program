@@ -1,3 +1,24 @@
+<wxs module="wxsJS">
+  var join = function(arr = []) {
+    var isEmpty = arr.every(function(item) {
+      console.log('every')
+      return !item
+    })
+    return isEmpty ? '请选择地区' : arr.join('/')
+  }
+  module.exports.join = join
+</wxs>
+
+
+<view class='current-address'>
+  <van-icon name="location-o" />
+  <view class='current-address-content'>
+    收货人： 王攀
+    <text>13352145285</text>
+    <view class='current-address-address'>内蒙古沙发沙发沙发沙发沙发沙发是阿萨法人为恶无法 </view>
+  </view>
+  <van-icon name="arrow" />
+</view>
 <van-popup 
   show="{{popupShow}}" 
   position="bottom" 
@@ -16,4 +37,42 @@
       <van-icon name="edit" />
     </label>
   </radio-group>
+  <button type='warn' class='radius-none'>新增收货地址</button>
+</van-popup>
+<van-popup 
+  show="{{popupShow}}" 
+  position="bottom"
+  bind:click-overlay="hidePopup"
+  >
+  <view class='address-edit-item'>
+    <text>姓名</text><input placeholder="这是一个可以自动聚焦的input" focus/>
+  </view>
+  <view class='address-edit-item'>
+    <text>电话</text><input placeholder="这是一个可以自动聚焦的input" focus type='number'/>
+  </view>
+  <view class='address-edit-item'>
+    <text>地区</text>
+    <picker
+      mode="region"
+      bindchange="bindRegionChange"
+      value="{{region}}"
+      custom-item="{{customItem}}"
+      >
+      <view class="picker">
+        {{wxsJS.join(region)}}
+      </view>
+    </picker>
+  </view>
+  <view class='address-edit-item'>
+    <text>详细地址</text><input placeholder="这是一个可以自动聚焦的input" focus type='number'/>
+  </view>
+  <view class='address-edit-item'>
+    <text>邮政编码</text><input placeholder="这是一个可以自动聚焦的input" focus type='number' maxlength="2"/>
+  </view>
+  <view class='address-edit-item'>
+    <text>设为默认收货地址</text><switch checked="{{false}}" bindchange="switchChange" />
+  </view>
+  
+  <button type='warn'>保存</button>
+  <button>删除</button>
 </van-popup>

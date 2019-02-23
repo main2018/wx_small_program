@@ -14,7 +14,8 @@ Page({
     pageSize: 5,
     pageNum: 1,
     finished: false,
-    isLoading: false
+    isLoading: false,
+    showAuth: false,
   },
   //事件处理函数
   bindViewTap: function() {
@@ -23,6 +24,7 @@ Page({
     })
   },
   onLoad: function () {
+
     this.getCommoditys()
     if (app.globalData.userInfo) {
       this.setData({
@@ -37,6 +39,10 @@ Page({
           userInfo: res.userInfo,
           hasUserInfo: true
         })
+      }
+      app.userInfoFailCallback = () => {
+        console.log(9999999999)
+        this.setData({ showAuth: true })
       }
     } else {
       // 在没有 open-type=getUserInfo 版本的兼容处理
@@ -74,11 +80,12 @@ Page({
     // console.log(e)
   },
   getUserInfo: function(e) {
-    app.globalData.userInfo = e.detail.userInfo
+    app.getTokenAndUser(e.detail)
     this.setData({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
+    this.setData({ showAuth: false })
   },
   getCommoditys() {
     return new Promise(resolve => {

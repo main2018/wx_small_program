@@ -8,7 +8,7 @@ page{
   --text-l: rgba(0,0,0,.54);
   --theme-color: red;
   --bg: #ccc;
-  --border-color: #ccc;
+  --border-color: #eee;
 
   --font-small: 25rpx;
   --font-large: 35rpx;
@@ -21,4 +21,7 @@ page{
   font-weight: 700;
   font-size: var(--font-large);
   line-height: 1.6;
+}
+.radius-none{
+  border-radius: 0;
 }
