@@ -9,7 +9,7 @@ Page({
   data: {
     popupShow: false,
     commodity: null,
-    quantity: 0
+    quantity: 1
   },
   close() {
     this.setData({popupShow: false})
@@ -45,7 +45,6 @@ Page({
       },
     })
 
-    console.log('op', options)
     // const id = wx.getStorageSync('id')
     const id = options.id
     wx.$ajax('/api/platform/product/findProduct', {id}).then(resp => {
@@ -62,7 +61,7 @@ Page({
   },
   skuConfirm() {
     this.setData({ popupShow: false })
-    saveorderAndTobuy(Object.assign({ quantity: this.data.quantity }, this.data.commodity || {}))
+    saveorderAndTobuy([Object.assign({ quantity: this.data.quantity }, this.data.commodity || {})])
   },
   hidePopup() {
     this.setData({popupShow: false})

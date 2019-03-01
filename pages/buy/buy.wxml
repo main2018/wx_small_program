@@ -1,9 +1,39 @@
-<address></address>
-
+<address addresss="{{addresss}}" bindsubmitSuccess="submitSuccess" bindchange="addressChange"></address>
+<view class='split'></view>
 <van-card
-  num="2"
-  price="2.00"
-  desc="描述信息"
-  title="商品标题"
-  thumb="//img.yzcdn.cn/upload_files/2017/07/02/af5b9f44deaeb68000d7e4a711160c53.jpg"
-/>
+  wx:for="{{orders}}"
+  wx:key="{{index}}"
+  num="{{item.quantity}}"
+  price="{{item.currentUnitPrice}}"
+  desc="{{item.title}}"
+  title="{{item.productName}}"
+  centered="{{true}}"
+  thumb="{{item.productImage}}"
+  >
+  <view slot="footer">
+    <van-stepper value="{{ item.quantity }}" data-index="{{index}}" bind:change="stepperChange" />
+  </view>
+</van-card>
+<van-cell
+  is-link
+  title="配送方式"
+  value="快递 免邮"
+  />
+<van-field
+  value="{{order.remark}}"
+  label="留言"
+  type="textarea"
+  placeholder="选填：填写内容和卖家协商确认"
+  rows="1"
+  autosize
+  border="{{ false }}"
+  bind:change="remarkChange"
+  />
+<van-submit-bar
+  loading="{{isLoading}}"
+  price="{{payNum * 100}}"
+  button-text="提交订单"
+  disabled="{{!canSubmit}}"
+  bind:submit="buy"
+  />
+

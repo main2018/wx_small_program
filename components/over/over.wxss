@@ -1,7 +1,5 @@
 /* components/over/over.wxss */
 .over{
   display: block;
-  color: #fff;
   text-align: center;
-  line-height: 2;
 }

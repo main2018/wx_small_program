@@ -6,8 +6,12 @@ Component({
   properties: {
     text: {
       type: String,
-      value: '已经到底了'
-    }
+      value: '暂无数据'
+    },
+    lineHeight: {
+      type: Number,
+      value: 2,
+    },
   },
 
   /**

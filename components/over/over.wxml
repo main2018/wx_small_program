@@ -1,1 +1,1 @@
-<text class="over">{{text}} 😆</text>
+<text class="over" style="line-height: {{lineHeight}}">{{text}} 😆</text>

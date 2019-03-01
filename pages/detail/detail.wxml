@@ -30,5 +30,13 @@
   custom-style="background-color: transparent;"
   bind:click-overlay="hidePopup"
   >
-  <sku bindclose="close" bindchange="skuChange" bindconfirm="skuConfirm" max="{{commodity.stock || 0}}"></sku>
+  <sku 
+    bindclose="close" 
+    bindchange="skuChange" 
+    bindconfirm="skuConfirm" 
+    max="{{commodity.stock || 0}}"
+    url="{{commodity.mainImage}}"
+    name="{{commodity.name}}"
+    price="{{commodity.price}}"
+    ></sku>
 </van-popup>

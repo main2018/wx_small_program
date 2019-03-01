@@ -1,1 +1,4 @@
 /* pages/buy/buy.wxss */
+page{
+  background-color: var(--bg);
+}

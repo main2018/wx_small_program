@@ -1,4 +1,5 @@
-const REMOTE_ADDRESS = 'http://192.168.0.102:8081'
+// const REMOTE_ADDRESS = 'http://192.168.0.168:8081'
+const REMOTE_ADDRESS = 'https://ysrest.yaleai.com'
 
 const CONTENT_TYPE = {
   FORM_DATA: 'multipart/form-data; charset=UTF-8',
@@ -34,8 +35,9 @@ function ajax(url, data = {}, contenttype = 'FORM', method = 'POST') {
       fail: err => {
         wx.showToast({
           title: (err && err.errMsg) || '失败',
-          icon: 'warn',
-          duration: 2000
+          icon: 'success',
+          duration: 2000,
+          mask: true
         })
         reject(err)
       }

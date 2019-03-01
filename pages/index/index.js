@@ -41,7 +41,6 @@ Page({
         })
       }
       app.userInfoFailCallback = () => {
-        console.log(9999999999)
         this.setData({ showAuth: true })
       }
     } else {
@@ -58,9 +57,9 @@ Page({
     }
   },
   onPullDownRefresh() {
-    this.pageNum = 1
+    this.setData({ pageNum: 1 })
     this.setData({commoditys: null})
-    this.getCommoditys().then(() => { wx.stopPullDownRefresh() })
+    this.getCommoditys().finally(() => { wx.stopPullDownRefresh() })
   },
   onReachBottom() {
     if (this.data.finished) return
@@ -88,7 +87,7 @@ Page({
     this.setData({ showAuth: false })
   },
   getCommoditys() {
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       wx.$ajax('/api/platform/product/productPage', {
           pageSize: this.data.pageSize, pageNum: this.data.pageNum, status: 1
         })
@@ -103,6 +102,13 @@ Page({
           this.setData({pageNum: this.data.pageNum + 1})
           // this.setData({pageNum: this.data.pageNum + 1,commoditys: [...this.data.commoditys || [], ..._list]})
           resolve()
+        })
+        .catch(() => {
+          reject()
+          wx.showModal({
+            title: '失败',
+            content: '/api/platform/product/productPage',
+          })
         })
     })
     

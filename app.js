@@ -1,8 +1,19 @@
 import ajax from 'utils/api.js'
 import {computed} from 'utils/vue-extend.js'
 
+const computedBehavior = require('miniprogram-computed')
+
 wx.$ajax = ajax
-wx.$computed = computed
+wx.$computed = computed // 页面的computed
+
+wx.$computedBehavior = computedBehavior // 官方版组件的computed
+
+wx.$showLoading = (title, mask = true) => {
+  wx.showLoading({
+    title: title || '加载中...',
+    mask,
+  })
+}
 
 //app.js
 App({
@@ -20,7 +31,7 @@ App({
   login() {
     wx.login({
       success: res => {
-        console.log('app', res)
+        // console.log('app', res)
         const code = res.code
 
         if (!code) {
@@ -61,7 +72,6 @@ App({
         this.getTokenAndUser(res)
       },
       fail: res => {
-        console.log(8888888888)
         if (this.userInfoFailCallback) {
           this.userInfoFailCallback()
         }

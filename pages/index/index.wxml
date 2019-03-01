@@ -20,13 +20,12 @@
     </block>
   </view>
   <view id="{{index}}" class="card" wx:for="{{commoditys}}" wx:key="{{item.id}}">
-    {{index}}
     <image src="{{item.mainImage}}" bindtap='toDetail' data-id="{{item.id}}"></image>
     <view>{{item.name}}<span class="amount">¥{{item.price}}</span></view>
     <text>{{item.subtitle}}</text>
   </view>
-  <loading wx:if="{{!finished}}"></loading>
-  <over text="没有数据啦" wx:if="{{finished}}"></over>
+  <!-- <loading wx:if="{{!finished}}"></loading> -->
+  <over text="没有数据啦" wx:if="{{finished && (!commoditys || !commoditys.length || commoditys.length >= 3)}}"></over>
   <!-- <scroll-view
     scroll-y
     style="width: 100%; height: 200px;"

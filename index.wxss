@@ -7,7 +7,7 @@
 page{
   --text-l: rgba(0,0,0,.54);
   --theme-color: red;
-  --bg: #ccc;
+  --bg: #eee;
   --border-color: #eee;
 
   --font-small: 25rpx;
@@ -24,4 +24,7 @@ page{
 }
 .radius-none{
   border-radius: 0;
+}
+.text-l{
+  color: var(--text-l);
 }

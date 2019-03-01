@@ -10,69 +10,78 @@
 </wxs>
 
 
-<view class='current-address'>
+<view class='current-address' bindtap='showAddress'>
   <van-icon name="location-o" />
-  <view class='current-address-content'>
-    收货人： 王攀
-    <text>13352145285</text>
-    <view class='current-address-address'>内蒙古沙发沙发沙发沙发沙发沙发是阿萨法人为恶无法 </view>
+  <view class='current-address-content' style="color: {{!useAddress || !useAddress.receiverName ? 'var(--text-l)' : 'block'}}">
+    收货人： {{useAddress.receiverName || '填写收货地址'}}
+    <text>{{useAddress.receiverMobileNo}}</text>
+    <view class='current-address-address'>{{useAddress.detailAddress}}</view>
   </view>
   <van-icon name="arrow" />
 </view>
 <van-popup 
   show="{{popupShow}}" 
-  position="bottom" 
+  position="bottom"
+  z-index="110"
   bind:click-overlay="hidePopup"
+  data-popupname="popupShow"
   >
   <!-- <view class='address-item'>
     
   </view> -->
+  <over wx:if="{{!addresss || !addresss.length}}" line-height="5"></over>
   <radio-group class="radio-group" bindchange="radioChange">
-    <label class="address-item" >
-      <radio value="1" checked="{{item.checked}}" color="#8A2BE2"/>
+    <label class="address-item" wx:for="{{addresss}}" wx:key="{{index}}">
+      <radio value="{{item.id}}" checked="{{item.defaultAddress}}" color="#8A2BE2"/>
       <view class='address-item-content'>
-        <text>王攀, 13325212518 </text>
-        <text class='address-item-address'>内蒙古沙发沙发沙发沙发沙发沙发是阿萨法人为恶无法 </text>
+        <text decode="{{true}}">{{item.receiverName}}, {{item.receiverMobileNo}}&emsp;{{item.defaultAddress ? '(默认)' : ''}}</text>
+        <text class='address-item-address'>{{item.detailAddress}}</text>
       </view>
-      <van-icon name="edit" />
+      <van-icon name="edit" catchtap='edit' data-index="{{index}}"/>
     </label>
   </radio-group>
-  <button type='warn' class='radius-none'>新增收货地址</button>
+  <button type='warn' class='radius-none' bindtap='addAddress'>新增收货地址</button>
 </van-popup>
 <van-popup 
-  show="{{popupShow}}" 
+  show="{{editPopupShow}}" 
   position="bottom"
+  z-index="120"
   bind:click-overlay="hidePopup"
+  data-popupname="editPopupShow"
   >
-  <view class='address-edit-item'>
-    <text>姓名</text><input placeholder="这是一个可以自动聚焦的input" focus/>
-  </view>
-  <view class='address-edit-item'>
-    <text>电话</text><input placeholder="这是一个可以自动聚焦的input" focus type='number'/>
-  </view>
-  <view class='address-edit-item'>
-    <text>地区</text>
-    <picker
-      mode="region"
-      bindchange="bindRegionChange"
-      value="{{region}}"
-      custom-item="{{customItem}}"
-      >
-      <view class="picker">
-        {{wxsJS.join(region)}}
-      </view>
-    </picker>
-  </view>
-  <view class='address-edit-item'>
-    <text>详细地址</text><input placeholder="这是一个可以自动聚焦的input" focus type='number'/>
-  </view>
-  <view class='address-edit-item'>
-    <text>邮政编码</text><input placeholder="这是一个可以自动聚焦的input" focus type='number' maxlength="2"/>
-  </view>
-  <view class='address-edit-item'>
-    <text>设为默认收货地址</text><switch checked="{{false}}" bindchange="switchChange" />
-  </view>
-  
-  <button type='warn'>保存</button>
-  <button>删除</button>
+  <form bindsubmit="formSubmit" bindreset="formReset">
+    <view class='address-edit-item'>
+      <text>姓名</text><input name="name" value="{{currentAddress.receiverName}}" placeholder="收货人姓名"/>
+    </view>
+    <view class='address-edit-item'>
+      <text>电话</text><input name="tel" value="{{currentAddress.receiverMobileNo}}" placeholder="收货人手机号" type='number'/>
+    </view>
+    
+    <view class='address-edit-item'>
+      <text>地区</text>
+      <picker
+        name="area"
+        mode="region"
+        bindchange="bindRegionChange"
+        value="{{region}}"
+        custom-item="{{customItem}}"
+        >
+        <view class="picker {{region && region.length ? '' : 'text-l'}}">
+          {{wxsJS.join(region)}}
+        </view>
+      </picker>
+    </view>
+    <view class='address-edit-item'>
+      <text>详细地址</text><input name="addressDetail" value="{{currentAddress.detailAddress}}" placeholder="街道门牌、楼层房间号等信息"/>
+    </view>
+    <view class='address-edit-item'>
+      <text>邮政编码</text><input name="postalCode" value="{{currentAddress.receiverZipCode}}" placeholder="邮政编码" type='number' maxlength="6"/>
+    </view>
+    <view class='address-edit-item'>
+      <text>设为默认收货地址</text><switch name="isDefault" checked="{{currentAddress.defaultAddress}}" bindchange="switchChange"/>
+    </view>
+    
+    <button class="address-btn" type='warn' form-type="submit">保存</button>
+    <button class="address-btn" bindtap='delete'>删除</button>
+  </form>
 </van-popup>

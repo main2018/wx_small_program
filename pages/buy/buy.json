@@ -1,6 +1,10 @@
 {
   "usingComponents": {
     "van-card": "../../miniprogram_npm/vant-weapp/card/index",
+    "van-stepper": "/miniprogram_npm/vant-weapp/stepper/index",
+    "van-cell": "/miniprogram_npm/vant-weapp/cell/index",
+    "van-field": "/miniprogram_npm/vant-weapp/field/index",
+    "van-submit-bar": "/miniprogram_npm/vant-weapp/submit-bar/index",
     "address": "../../components/address/address"
   }
 }

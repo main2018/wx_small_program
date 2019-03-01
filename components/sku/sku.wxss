@@ -50,7 +50,13 @@
 
 .amount{
   color: red;
+  line-height: 2;
+  font-size: var(--font-large)
 }
 .sku-confirm{
   border-radius: 0;
+}
+
+.error{
+  color: rgb(241, 81, 81);
 }
